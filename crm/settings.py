@@ -10,11 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
-from pathlib import Path
+from decouple import config
+from unipath import Path
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).parent
+CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -24,9 +26,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=z&0c2$qxhz%lpp)vnkzz**z+t-n*c#0%ea5+pgq+9(u+l5=g2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = []
+# load production server from .env
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', config(
+    'SERVER', default='127.0.0.1'), 'technovalty-dashboard.herokuapp.com']
+
 
 
 # Application definition
@@ -122,16 +127,16 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(CORE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 # Media Files Settings
-MEDIA_ROOT = os.path.join(BASE_DIR, 'crm/static/images')
+MEDIA_ROOT = os.path.join(CORE_DIR, 'crm/static/images')
 MEDIA_URL = '/crm/static/images/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'crm/static'),
+    os.path.join(CORE_DIR, 'crm/static'),
 )
 #############################################################
 #############################################################
