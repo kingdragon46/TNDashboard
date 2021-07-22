@@ -130,13 +130,9 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(CORE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
-# Media Files Settings
-MEDIA_ROOT = os.path.join(CORE_DIR, 'crm/static/images')
-MEDIA_URL = '/crm/static/images/'
-
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(CORE_DIR, 'crm/static'),
+    os.path.join(CORE_DIR, 'static'),
 )
 #############################################################
 #############################################################
